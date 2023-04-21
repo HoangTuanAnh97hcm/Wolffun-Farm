@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ using UnityEngine;
 public class AgriculturalSO : ScriptableObject 
 {
     public string nameString;
+    public int price;
+    public int totalProduct;
+    public float productTimeMinus;
     public Transform prefab;
-    public Transform visual;
 }

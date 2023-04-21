@@ -239,6 +239,7 @@ MonoBehaviour:
   gridWidth: 15
   gridHeight: 6
   gridSize: 1
+  placedObjectPrefab: {fileID: 3528584733398628183, guid: 20cfea23f47371c41aec247ef79ef82f, type: 3}
 --- !u!4 &1627085294
 Transform:
   m_ObjectHideFlags: 0
