@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-public class PlacedObject : MonoBehaviour {
+public abstract class PlacedObject : MonoBehaviour {
 
     public static PlacedObject Create(Vector3 worldPosition, Transform placedObjectPrefab) 
     {
@@ -13,14 +10,26 @@ public class PlacedObject : MonoBehaviour {
 
     private AgriculturalSO agriculturalSO;
 
-    public void SetAgricultural(AgriculturalSO agriculturalSO)
+    public virtual void SetAgricultural(AgriculturalSO agriculturalSO)
     {
+        if (IsHaveAgricultural()) return;
+
         this.agriculturalSO = agriculturalSO;
     }
 
     public AgriculturalSO GetAgriculturalSO()
     {
         return agriculturalSO;
+    }
+
+    public void ClearAgricultural()
+    {
+        agriculturalSO = null;
+    }
+
+    public bool IsHaveAgricultural()
+    {
+        return agriculturalSO != null;
     }
 
     public void DestroySelf() {

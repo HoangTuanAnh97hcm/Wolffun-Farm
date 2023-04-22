@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e7747bdf78fa6141a2f81d16ff91e5f, type: 3}
-  m_Name: New Agricultural SO
+  m_Name: Tomato
   m_EditorClassIdentifier: 
-  nameString: 
+  nameString: Tomato
+  price: 5
+  totalProduct: 40
+  productTimeMinus: 10
   prefab: {fileID: 0}

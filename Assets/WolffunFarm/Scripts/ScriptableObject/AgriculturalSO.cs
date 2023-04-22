@@ -10,5 +10,5 @@ public class AgriculturalSO : ScriptableObject
     public int price;
     public int totalProduct;
     public float productTimeMinus;
-    public Transform prefab;
+    public AgriculturalVisual visualPrefab;
 }
