@@ -17,8 +17,19 @@ public static class UtilsClass
         return worldPosition;
     }
 
-    public static string ConvertTimeSpanToMinusSecond(TimeSpan timeSpan)
+    public static string TimeSpanToMinusSecondString(TimeSpan timeSpan)
     {
         return $"{timeSpan.Minutes}:{timeSpan.Seconds}";
+    }
+
+    public static float MinusToSecond(float minus)
+    {
+        return minus * 60;
+    }
+
+    public static string SecondToMinusSecondString(int second)
+    {
+
+        return $"{second / 60} : {second % 60}";
     }
 }

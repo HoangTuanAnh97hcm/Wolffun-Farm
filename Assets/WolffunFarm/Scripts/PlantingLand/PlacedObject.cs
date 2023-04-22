@@ -17,17 +17,17 @@ public abstract class PlacedObject : MonoBehaviour {
         this.agriculturalSO = agriculturalSO;
     }
 
-    public AgriculturalSO GetAgriculturalSO()
+    protected AgriculturalSO GetAgriculturalSO()
     {
         return agriculturalSO;
     }
 
-    public void ClearAgricultural()
+    protected void ClearAgricultural()
     {
         agriculturalSO = null;
     }
 
-    public bool IsHaveAgricultural()
+    protected bool IsHaveAgricultural()
     {
         return agriculturalSO != null;
     }
@@ -39,4 +39,9 @@ public abstract class PlacedObject : MonoBehaviour {
     public override string ToString() {
         return agriculturalSO.nameString;
     }
+
+    public virtual void ResetObject()
+    {
+        ClearAgricultural();
+    }    
 }

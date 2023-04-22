@@ -17,9 +17,12 @@ public class PlantingLand : PlacedObject
     private int produced;
 
     private DateTime dateTime;
-    private int timeWaitHarvest = 1;
+    private TimeSpan timeSpan;
+    private float timeWaitHarvest = 1;
 
     private AgriculturalVisual visual;
+
+    private float timeCount;
 
     private void Update()
     {
@@ -30,24 +33,32 @@ public class PlantingLand : PlacedObject
             case State.Produce:
                 if (produced < GetAgriculturalSO().totalProduct)
                 {
-                    TimeSpan timeSpan = dateTime - DateTime.Now;
+                    CountTime();
 
-                    if (timeSpan.TotalMinutes < 0)
+                    if (timeCount < 0)
                     {
                         product++;
                         produced++;
                         SetTimeProduce();
                     }
 
-                    SetVisual(product, timeSpan);
+                    SetVisual(product, timeCount);
 
                 }else
                 {
-                    dateTime = DateTime.Now + TimeSpan.FromHours(timeWaitHarvest);
+                    timeCount = UtilsClass.MinusToSecond(timeWaitHarvest);
                     state = State.WaitHarvest;
                 }
                 break;
             case State.WaitHarvest:
+
+                CountTime();
+                SetVisual(product, timeCount, Color.red);
+
+                if (timeCount < 0)
+                {
+                    ResetObject();
+                }
                 break;
         }
     }
@@ -68,11 +79,33 @@ public class PlantingLand : PlacedObject
     private void SetTimeProduce()
     {
         dateTime = DateTime.Now + TimeSpan.FromMinutes(GetAgriculturalSO().productTimeMinus);
+
+        timeCount = UtilsClass.MinusToSecond(GetAgriculturalSO().productTimeMinus);
+    }
+
+    private void CountTime()
+    {
+        timeCount -= Time.deltaTime;
+    }
+
+    private void CountTime(float percent)
+    {
+        timeCount -= Time.deltaTime + (Time.deltaTime * percent / 100);
     }
 
     private void SetVisual(int product, TimeSpan timeSpan)
     {
         visual?.SetText(GetAgriculturalSO().name, product, timeSpan);
+    }
+
+    private void SetVisual(int product, float second)
+    {
+        visual?.SetText(GetAgriculturalSO().name, product, second);
+    }
+
+    private void SetVisual(int product, float second, Color colorSecond)
+    {
+        visual?.SetText(GetAgriculturalSO().name, product, second, colorSecond);
     }
 
     private void CreateVisual(Transform transform)
@@ -83,5 +116,16 @@ public class PlantingLand : PlacedObject
     private bool CanCreateVisual()
     {
         return visual == null;
+    }
+
+    public override void ResetObject()
+    {
+        base.ResetObject();
+        product = 0;
+        produced = 0;
+        visual?.DestroySelf();
+        visual = null;
+        timeCount = 0;
+        state = State.Idle;
     }
 }
