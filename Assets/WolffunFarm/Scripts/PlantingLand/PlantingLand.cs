@@ -12,13 +12,14 @@ public class PlantingLand : PlacedObject
         WaitHarvest
     }
 
+    [SerializeField] GlobalInforSO globalInfor;
+
     private State state;
     private int product;
     private int produced;
 
     private DateTime dateTime;
     private TimeSpan timeSpan;
-    private float timeWaitHarvest = 1;
 
     private AgriculturalVisual visual;
 
@@ -33,7 +34,7 @@ public class PlantingLand : PlacedObject
             case State.Produce:
                 if (produced < GetAgriculturalSO().totalProduct)
                 {
-                    CountTime();
+                    CountTime(globalInfor.upgradePercent);
 
                     if (timeCount < 0)
                     {
@@ -46,13 +47,13 @@ public class PlantingLand : PlacedObject
 
                 }else
                 {
-                    timeCount = UtilsClass.MinusToSecond(timeWaitHarvest);
+                    timeCount = UtilsClass.MinusToSecond(globalInfor.timeWaitHarvestMinus);
                     state = State.WaitHarvest;
                 }
                 break;
             case State.WaitHarvest:
 
-                CountTime();
+                CountTime(globalInfor.upgradePercent);
                 SetVisual(product, timeCount, Color.red);
 
                 if (timeCount < 0)

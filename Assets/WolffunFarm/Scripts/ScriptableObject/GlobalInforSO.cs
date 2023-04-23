@@ -5,5 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Wolffun/GlobalInfor")]
 public class GlobalInforSO : ScriptableObject
 {
-    public float timeScale = 1;
+    [Tooltip("Speed Of Game")]
+    public float timeScale = 1f;
+
+    [Header("In-game stats")]
+
+    [Tooltip("Time Wait For Player Harvest, Minus")]
+    public float timeWaitHarvestMinus = 60f;
+    [Tooltip("Farm Device Upgrade Percent")]
+    public int upgradePercent = 0;
 }

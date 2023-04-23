@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537cdfd678a8b564cbda3001fb226557, type: 3}
   m_Name: GlobalInfor
   m_EditorClassIdentifier: 
-  timeScale: 100
+  timeScale: 1
