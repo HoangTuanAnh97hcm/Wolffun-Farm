@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GridSystem : MonoBehaviour
@@ -10,7 +12,7 @@ public class GridSystem : MonoBehaviour
     [SerializeField] private int gridWidth;
     [SerializeField] private int gridHeight;
     [SerializeField] private float gridSize;
-    [SerializeField]private PlacedObject placedObjectPrefab;
+    [SerializeField]private PlacedObject placedObject;
     [SerializeField]private AgriculturalSO agriculturalSO;
 
     private Grid<GridObject> grid;
@@ -50,7 +52,7 @@ public class GridSystem : MonoBehaviour
             placedObject = null;
         }
 
-        public bool CanBuild()
+        public bool CanLand()
         {
             return placedObject == null;
         }
@@ -60,21 +62,55 @@ public class GridSystem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            // x is x of Grid
+            // y is y of Grid
             grid.GetXY(UtilsClass.GetMouseWorldPosition(), out int x, out int y);
             GridObject gridObject = grid.GetGridObject(x, y);
 
             if (gridObject == null) return;
 
-            if (gridObject.CanBuild() && placedObjectPrefab != null)
+            if (gridObject.CanLand() && placedObject != null)
             {
-                PlacedObject placedObject = PlacedObject.Create(grid.GetWorldPosition(x, y), placedObjectPrefab.transform);
-                gridObject.SetPlaceObject(placedObject);
+                PlacingObject(gridObject, x, y);
 
-            }else if (!gridObject.CanBuild() && agriculturalSO != null)
+            }else if (!gridObject.CanLand() && agriculturalSO != null)
             {
-                PlacedObject placedObject = grid.GetGridObject(x, y).GetPlaceObject();
-                placedObject.SetAgricultural(agriculturalSO);
+                PlacingAgricultural(x, y);
             }
         }
+    }
+
+    private void PlacingObject(GridObject gridObject, int x, int y)
+    {
+        PlacedObject placedObject = PlacedObject.Create(grid.GetWorldPosition(x, y), this.placedObject.transform);
+        gridObject.SetPlaceObject(placedObject);
+
+        this.placedObject = null;
+    }
+
+    private void PlacingAgricultural(int x, int y)
+    {
+        PlacedObject placedObject = grid.GetGridObject(x, y).GetPlaceObject();
+        placedObject.SetAgricultural(agriculturalSO);
+
+        this.agriculturalSO = null;
+    }
+
+    /// <summary>
+    /// Set Prefab PlacedOBject to Grid System
+    /// </summary>
+    /// <param name="placedObject">Prefab has scritp Placed Object.</param>
+    public void SetPlaceObject(PlacedObject placedObject)
+    {
+        this.placedObject = placedObject;
+    }
+
+    /// <summary>
+    /// Set Agricultural ScriptableObject to Grid System
+    /// </summary>
+    /// <param name="agriculturalSO">Agricultura ScriptableOBject.</param>
+    public void SetAgricultural(AgriculturalSO agriculturalSO)
+    {
+        this.agriculturalSO = agriculturalSO;
     }
 }
