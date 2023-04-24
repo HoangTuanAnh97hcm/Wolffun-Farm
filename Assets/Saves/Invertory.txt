@@ -2,37 +2,37 @@
     "seeds": [
         {
             "name": "Blueberry",
-            "amounts": 9
+            "amounts": 16
         },
         {
             "name": "DairyCow",
-            "amounts": 1
+            "amounts": 6
         },
         {
             "name": "Strawberry",
-            "amounts": 0
+            "amounts": 29
         },
         {
             "name": "Tomato",
-            "amounts": 9
+            "amounts": 17
         }
     ],
     "products": [
         {
             "name": "Blueberry",
-            "amounts": 2
+            "amounts": 3
         },
         {
             "name": "DairyCow",
-            "amounts": 2
+            "amounts": 6
         },
         {
             "name": "Strawberry",
-            "amounts": 0
+            "amounts": 2
         },
         {
             "name": "Tomato",
-            "amounts": 2
+            "amounts": 4
         }
     ]
 }

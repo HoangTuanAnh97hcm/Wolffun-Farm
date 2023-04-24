@@ -19,22 +19,15 @@ public class StoreVisual : MonoBehaviour
         {
             Item seedItem = Instantiate(storePrefab, contain).GetComponent<Item>();
 
-            string text = $"Seed {item.name}: {item.amount}";
+            string text = $"{item.name}: {item.price}Coint/{item.amount}Seed";
 
             seedItem.SetVisual(text, () =>
             {
                 if (GameData.Instance.GetCoint() < item.price) return;
 
                 GameData.Instance.SetCoint(-item.price);
-                Inventory.Instance.SetAmountSeed(item.name, item.amount);
-
-                HideInventory();
+                Inventory.Instance.SetAmountSeed(item.ID, item.amount);
             });
         }
-    }
-
-    private void HideInventory()
-    {
-        gameObject.SetActive(false);
     }
 }

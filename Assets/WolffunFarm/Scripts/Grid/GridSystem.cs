@@ -60,7 +60,7 @@ public class GridSystem : MonoBehaviour
                 PlacingObject(gridObject, x, y);
                 this.placedObject = null;
 
-                GameData.Instance.SetCoint(globalInforSO.priceLand);
+                GameData.Instance.SetCoint(-globalInforSO.priceLand);
                 Save();
             }
             else if (!gridObject.CanPlaced() && agriculturalSO != null)

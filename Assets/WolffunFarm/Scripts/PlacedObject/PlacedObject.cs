@@ -36,7 +36,7 @@ public class PlacedObject : MonoBehaviour {
             case State.Produce:
                 if (produced < agriculturalSO.totalProduct)
                 {
-                    CountTime(globalInfor.upgradePercent);
+                    CountTime(globalInfor.upgradePercent * GameData.Instance.GetLevelDevice());
 
                     if (timeCount < 0)
                     {
@@ -55,7 +55,7 @@ public class PlacedObject : MonoBehaviour {
                 break;
             case State.WaitHarvest:
 
-                CountTime(globalInfor.upgradePercent);
+                CountTime(globalInfor.upgradePercent * GameData.Instance.GetLevelDevice());
                 SetAgriculturalVisual(product, timeCount, Color.red);
 
                 if (timeCount < 0)

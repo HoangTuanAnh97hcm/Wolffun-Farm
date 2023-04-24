@@ -8,7 +8,7 @@ public class InventoryVisual : MonoBehaviour
     [SerializeField] private Transform productPrefab;
     [SerializeField] private Transform contain;
 
-    private void Start()
+    private void OnEnable()
     {
         LoadSeedItems();
     }
@@ -57,7 +57,7 @@ public class InventoryVisual : MonoBehaviour
                 GameData.Instance.SetCoint(agriculturalSO.price);
                 Inventory.Instance.SetAmountProduct(product.name, -1);
 
-                HideInventory();
+                LoadProductItems();
             });
         }
     }

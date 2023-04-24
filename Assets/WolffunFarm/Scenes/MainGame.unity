@@ -1123,6 +1123,7 @@ GameObject:
   - component: {fileID: 652260715}
   - component: {fileID: 652260714}
   - component: {fileID: 652260713}
+  - component: {fileID: 652260716}
   m_Layer: 5
   m_Name: UpgradeDevice_bt
   m_TagString: Untagged
@@ -1233,6 +1234,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652260711}
   m_CullTransparentMesh: 1
+--- !u!114 &652260716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652260711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294f5590f5b03ad45889d9114d7cc551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalInforSO: {fileID: 11400000, guid: eb93dbb5616bdc24f85a580b4e3e395d, type: 2}
 --- !u!1 &732942305
 GameObject:
   m_ObjectHideFlags: 0
@@ -3240,8 +3254,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1962373934}
+  - component: {fileID: 1962373935}
   m_Layer: 5
-  m_Name: TextGroup
+  m_Name: DataVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3269,6 +3284,20 @@ RectTransform:
   m_AnchoredPosition: {x: 1002, y: -454}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1962373935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962373933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 161c9ead378083b45ab3a318e2beafa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coint: {fileID: 138873985}
+  levelDevice: {fileID: 732942308}
 --- !u!1 &2065580710
 GameObject:
   m_ObjectHideFlags: 0
