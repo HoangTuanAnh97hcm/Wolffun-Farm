@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e7747bdf78fa6141a2f81d16ff91e5f, type: 3}
-  m_Name: Tomato
+  m_Script: {fileID: 11500000, guid: 46598e9bde041e543ba60243ea9cd855, type: 3}
+  m_Name: DairyCow
   m_EditorClassIdentifier: 
-  nameString: Tomato
-  price: 5
-  totalProduct: 2
-  productTimeMinus: 0.1
-  visualPrefab: {fileID: 7555180721689288686, guid: 92c2047cda919d4409808c3112da89a3, type: 3}
+  ID: DairyCow
+  price: 100
+  amount: 1
