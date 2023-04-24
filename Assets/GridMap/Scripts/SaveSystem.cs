@@ -34,76 +34,30 @@ public static class SaveSystem {
         }
     }
 
-    public static void Save(string fileName, string saveString, bool overwrite) {
+    private static string getPath(string fileName)
+    {
+        return SAVE_FOLDER + fileName + "." + SAVE_EXTENSION;
+    }
+
+    private static void Save(string fileName, string saveString) {
         Init();
-        string saveFileName = fileName;
-        if (!overwrite) {
-            // Make sure the Save Number is unique so it doesnt overwrite a previous save file
-            int saveNumber = 1;
-            while (File.Exists(SAVE_FOLDER + saveFileName + "." + SAVE_EXTENSION)) {
-                saveNumber++;
-                saveFileName = fileName + "_" + saveNumber;
-            }
-            // saveFileName is unique
-        }
-        File.WriteAllText(SAVE_FOLDER + saveFileName + "." + SAVE_EXTENSION, saveString);
+        File.WriteAllText(getPath(fileName), saveString);
     }
 
-    public static string Load(string fileName) {
-        Init();
-        if (File.Exists(SAVE_FOLDER + fileName + "." + SAVE_EXTENSION)) {
-            string saveString = File.ReadAllText(SAVE_FOLDER + fileName + "." + SAVE_EXTENSION);
-            return saveString;
-        } else {
-            return null;
-        }
-    }
-
-    public static string LoadMostRecentFile() {
-        Init();
-        DirectoryInfo directoryInfo = new DirectoryInfo(SAVE_FOLDER);
-        // Get all save files
-        FileInfo[] saveFiles = directoryInfo.GetFiles("*." + SAVE_EXTENSION);
-        // Cycle through all save files and identify the most recent one
-        FileInfo mostRecentFile = null;
-        foreach (FileInfo fileInfo in saveFiles) {
-            if (mostRecentFile == null) {
-                mostRecentFile = fileInfo;
-            } else {
-                if (fileInfo.LastWriteTime > mostRecentFile.LastWriteTime) {
-                    mostRecentFile = fileInfo;
-                }
-            }
-        }
-
-        // If theres a save file, load it, if not return null
-        if (mostRecentFile != null) {
-            string saveString = File.ReadAllText(mostRecentFile.FullName);
-            return saveString;
-        } else {
-            return null;
-        }
-    }
-
-    public static void SaveObject(object saveObject) {
-        SaveObject("save", saveObject, false);
-    }
-
-    public static void SaveObject(string fileName, object saveObject, bool overwrite) {
+    public static void SaveObject(string fileName, object saveObject) {
         Init();
         string json = JsonUtility.ToJson(saveObject, true);
-        Save(fileName, json, overwrite);
+        Save(fileName, json);
         Logging.LogMessage(json);
     }
 
-    public static TSaveObject LoadMostRecentObject<TSaveObject>() {
+    private static string Load(string fileName) {
         Init();
-        string saveString = LoadMostRecentFile();
-        if (saveString != null) {
-            TSaveObject saveObject = JsonUtility.FromJson<TSaveObject>(saveString);
-            return saveObject;
+        if (File.Exists(SAVE_FOLDER + fileName + "." + SAVE_EXTENSION)) {
+            string saveString = File.ReadAllText(getPath(fileName));
+            return saveString;
         } else {
-            return default(TSaveObject);
+            return null;
         }
     }
 

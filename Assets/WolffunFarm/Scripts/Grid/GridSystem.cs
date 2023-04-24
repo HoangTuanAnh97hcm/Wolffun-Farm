@@ -16,9 +16,7 @@ public class GridSystem : MonoBehaviour
     [SerializeField]private AgriculturalSO agriculturalSO;
 
     private Grid<GridObject> grid;
-
-    private const string DATA_NAME = "GridData.txt";
-    private string SAVE_PATH { get { return Application.persistentDataPath + DATA_NAME; } }
+    private const string DATA_NAME = "GridData";
 
     private void Awake()
     {
@@ -27,68 +25,6 @@ public class GridSystem : MonoBehaviour
         grid = new Grid<GridObject>(gridWidth, gridHeight, gridSize, Vector3.zero, (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
 
         Load();
-    }
-
-    public class GridObject
-    {
-        private Grid<GridObject> grid;
-        private int x, y;
-        private PlacedObject placedObject;
-
-        public GridObject(Grid<GridObject> grid, int x, int y)
-        {
-            this.grid = grid;
-            this.x = x;
-            this.y = y;
-        }
-
-        public void SetPlaceObject(PlacedObject placedObject)
-        {
-            this.placedObject = placedObject;
-        }
-
-        public PlacedObject GetPlaceObject()
-        {
-            return placedObject;
-        }
-
-        public void ClearPlaceObject()
-        {
-            placedObject = null;
-        }
-
-        public bool CanLand()
-        {
-            return placedObject == null;
-        }
-
-        [System.Serializable]
-        public class SaveObject
-        {
-            public string placedObject;
-            public int x;
-            public int y;
-        }
-
-        /*
-         * Save - Load
-         * */
-        public SaveObject Save()
-        {
-            return new SaveObject
-            {
-                placedObject = placedObject?.SaveData(),
-                x = x,
-                y = y,
-            };
-        }
-
-        public void Load(SaveObject saveObject)
-        {
-            placedObject?.LoadData(saveObject.placedObject);
-            x = saveObject.x;
-            y = saveObject.y;
-        }
     }
 
     private void Update()
@@ -102,13 +38,13 @@ public class GridSystem : MonoBehaviour
 
             if (gridObject == null) return;
 
-            if (gridObject.CanLand() && placedObject != null)
+            if (gridObject.CanPlaced() && placedObject != null)
             {
                 PlacingObject(gridObject, x, y);
                 this.placedObject = null;
                 Save();
             }
-            else if (!gridObject.CanLand() && agriculturalSO != null)
+            else if (!gridObject.CanPlaced() && agriculturalSO != null)
             {
                 PlacingAgricultural(x, y);
             }
@@ -150,9 +86,7 @@ public class GridSystem : MonoBehaviour
         this.agriculturalSO = agriculturalSO;
     }
 
-    /*
-        * Save - Load
-        * */
+    #region SaveLoad
     public class SaveObject
     {
         public GridObject.SaveObject[] gridObjectSaveObjectArray;
@@ -172,12 +106,12 @@ public class GridSystem : MonoBehaviour
 
         SaveObject saveObject = new SaveObject { gridObjectSaveObjectArray = gridObjectSaveObjectList.ToArray() };
 
-        SaveSystem.SaveObject(saveObject);
+        SaveSystem.SaveObject(DATA_NAME, saveObject);
     }
 
     public void Load()
     {
-        SaveObject saveObject = SaveSystem.LoadMostRecentObject<SaveObject>();
+        SaveObject saveObject = SaveSystem.LoadObject<SaveObject>(DATA_NAME);
 
         if (saveObject == null) return;
 
@@ -199,5 +133,68 @@ public class GridSystem : MonoBehaviour
     private void OnApplicationQuit()
     {
         Save();
+    }
+    #endregion
+
+    public class GridObject
+    {
+        private Grid<GridObject> grid;
+        private int x, y;
+        private PlacedObject placedObject;
+
+        public GridObject(Grid<GridObject> grid, int x, int y)
+        {
+            this.grid = grid;
+            this.x = x;
+            this.y = y;
+        }
+
+        public void SetPlaceObject(PlacedObject placedObject)
+        {
+            this.placedObject = placedObject;
+        }
+
+        public PlacedObject GetPlaceObject()
+        {
+            return placedObject;
+        }
+
+        public void ClearPlaceObject()
+        {
+            placedObject = null;
+        }
+
+        public bool CanPlaced()
+        {
+            return placedObject == null;
+        }
+
+        [System.Serializable]
+        public class SaveObject
+        {
+            public string placedObject;
+            public int x;
+            public int y;
+        }
+
+        /*
+         * Save - Load
+         * */
+        public SaveObject Save()
+        {
+            return new SaveObject
+            {
+                placedObject = placedObject?.SaveData(),
+                x = x,
+                y = y,
+            };
+        }
+
+        public void Load(SaveObject saveObject)
+        {
+            placedObject?.LoadData(saveObject.placedObject);
+            x = saveObject.x;
+            y = saveObject.y;
+        }
     }
 }
