@@ -8,6 +8,8 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; private set; }
 
+    [SerializeField] NewGameSO newGameSO;
+
     private Seeds[] seeds;
     private Products[] products;
 
@@ -105,10 +107,23 @@ public class Inventory : MonoBehaviour
     {
         SaveObject saveObject = SaveSystem.LoadObject<SaveObject>(DATA_NAME);
 
-        if (saveObject == null) return;
+        if (saveObject == null)
+        {
+            LoadNewGame();
+            return;
+        }
 
         seeds = saveObject.seeds;
         products = saveObject.products;
+    }
+
+    private void LoadNewGame()
+    {
+        Logging.LogMessage("New Game");
+        foreach (var item in newGameSO.seeds)
+        {
+            SetAmountSeed(item.name, item.amounts);
+        }
     }
 
     private void OnApplicationQuit()
@@ -116,6 +131,13 @@ public class Inventory : MonoBehaviour
         Save();
     }
     #endregion
+
+    private void OnValidate()
+    {
+        if (!gameObject.activeInHierarchy) return;
+
+        if (newGameSO == null) Logging.LogWarning(gameObject.name + " Missing Reference NewGameSO");
+    }
 }
 
 [Serializable]

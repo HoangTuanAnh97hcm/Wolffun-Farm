@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class GridSystem : MonoBehaviour
@@ -12,11 +13,22 @@ public class GridSystem : MonoBehaviour
     [SerializeField] private int gridWidth;
     [SerializeField] private int gridHeight;
     [SerializeField] private float gridSize;
-    [SerializeField]private PlacedObject placedObject;
-    [SerializeField]private AgriculturalSO agriculturalSO;
+    [SerializeField] private PlacedObject placedObject;
+    [SerializeField] private GlobalInforSO globalInforSO;
+    [SerializeField] private NewGameSO newGameSO;
 
+    private AgriculturalSO agriculturalSO;
     private Grid<GridObject> grid;
     private const string DATA_NAME = "GridData";
+
+    private void OnValidate()
+    {
+        if (!gameObject.activeInHierarchy) return;
+
+        if (placedObject == null) Logging.LogWarning(gameObject.name + " Missing Reference PlacedObject");
+        if (globalInforSO == null) Logging.LogWarning(gameObject.name + " Missing Reference GlobalInforSO");
+        if (newGameSO == null) Logging.LogWarning(gameObject.name + " Missing Reference NewGameSO");
+    }
 
     private void Awake()
     {
@@ -36,18 +48,32 @@ public class GridSystem : MonoBehaviour
             grid.GetXY(UtilsClass.GetMouseWorldPosition(), out int x, out int y);
             GridObject gridObject = grid.GetGridObject(x, y);
 
-            if (gridObject == null) return;
+            if (gridObject == null)
+            {
+                this.placedObject = null;
+                this.agriculturalSO = null;
+                return;
+            }
 
             if (gridObject.CanPlaced() && placedObject != null)
             {
                 PlacingObject(gridObject, x, y);
                 this.placedObject = null;
+
+                GameData.Instance.SetCoint(globalInforSO.priceLand);
                 Save();
             }
             else if (!gridObject.CanPlaced() && agriculturalSO != null)
             {
                 PlacingAgricultural(x, y);
+
+                Inventory.Instance.SetAmountSeed(agriculturalSO.name, -1);
+
+                this.agriculturalSO = null;
+                Save();
             }
+
+            gridObject.GetPlaceObject()?.Harvest();
         }
     }
 
@@ -62,10 +88,6 @@ public class GridSystem : MonoBehaviour
         PlacedObject placedObject = grid.GetGridObject(x, y).GetPlaceObject();
         placedObject.SetAgricultural(agriculturalSO);
         placedObject.StartStateProduction();
-        
-        this.agriculturalSO = null;
-
-        Save();
     }
 
     /// <summary>
@@ -113,7 +135,13 @@ public class GridSystem : MonoBehaviour
     {
         SaveObject saveObject = SaveSystem.LoadObject<SaveObject>(DATA_NAME);
 
-        if (saveObject == null) return;
+        if (saveObject == null)
+        {
+            NewGame();
+
+            placedObject = null;
+            return;
+        }
 
         foreach (GridObject.SaveObject gridObjectSaveObject in saveObject.gridObjectSaveObjectArray)
         {
@@ -128,6 +156,17 @@ public class GridSystem : MonoBehaviour
 
         placedObject = null;
         OnLoaded?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void NewGame()
+    {
+        int firstXIndex = 0;
+
+        for (int yIndex = 0; yIndex < newGameSO.plantedLand; yIndex++)
+        {
+            GridObject gridObject = grid.GetGridObject(firstXIndex, yIndex);
+            PlacingObject(gridObject, firstXIndex, yIndex);
+        }
     }
 
     private void OnApplicationQuit()

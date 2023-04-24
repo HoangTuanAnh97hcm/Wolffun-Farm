@@ -976,6 +976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b98a84be2b608348aa8a9f26df02c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGameSO: {fileID: 11400000, guid: 6c28ce952429cc8489436250a39e5452, type: 2}
 --- !u!1 &652260711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,7 +1839,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 214013176}
+      - m_Target: {fileID: 1023616481}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -2099,6 +2100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placedObject: {fileID: 4473718664724977240, guid: 20cfea23f47371c41aec247ef79ef82f, type: 3}
+  globalInforSO: {fileID: 0}
 --- !u!1 &1592871303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2267,7 +2269,8 @@ MonoBehaviour:
   gridHeight: 6
   gridSize: 1
   placedObject: {fileID: 4473718664724977240, guid: 20cfea23f47371c41aec247ef79ef82f, type: 3}
-  agriculturalSO: {fileID: 0}
+  globalInforSO: {fileID: 11400000, guid: eb93dbb5616bdc24f85a580b4e3e395d, type: 2}
+  newGameSO: {fileID: 11400000, guid: 6c28ce952429cc8489436250a39e5452, type: 2}
 --- !u!4 &1627085294
 Transform:
   m_ObjectHideFlags: 0

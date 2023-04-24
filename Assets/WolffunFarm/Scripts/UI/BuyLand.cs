@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class BuyLand : MonoBehaviour
 {
     [SerializeField] private PlacedObject placedObject;
+    [SerializeField] private GlobalInforSO globalInforSO;
     private Button button;
 
     private void Awake()
@@ -21,6 +22,8 @@ public class BuyLand : MonoBehaviour
 
     private void OnBuyLandClick()
     {
+        if (GameData.Instance.GetCoint() < globalInforSO.priceLand) return;
+
         GridSystem.Instance.SetPlancedObject(placedObject);
     }
 

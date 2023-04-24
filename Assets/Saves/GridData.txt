@@ -1,17 +1,17 @@
 {
     "gridObjectSaveObjectArray": [
         {
-            "placedObject": "{\"agriculturalName\":null,\"product\":0,\"produced\":0,\"dateTime\":\"2023-04-25T00:34:25.2417518+07:00\",\"state\":0}",
+            "placedObject": "{\"agriculturalName\":null,\"product\":0,\"produced\":0,\"dateTime\":\"2023-04-25T01:39:23.5074715+07:00\",\"state\":0}",
             "x": 0,
             "y": 0
         },
         {
-            "placedObject": "",
+            "placedObject": "{\"agriculturalName\":null,\"product\":0,\"produced\":0,\"dateTime\":\"2023-04-25T01:39:23.5314878+07:00\",\"state\":0}",
             "x": 0,
             "y": 1
         },
         {
-            "placedObject": "",
+            "placedObject": "{\"agriculturalName\":null,\"product\":0,\"produced\":0,\"dateTime\":\"2023-04-25T01:39:23.5314878+07:00\",\"state\":0}",
             "x": 0,
             "y": 2
         },

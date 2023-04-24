@@ -21,7 +21,7 @@ public class InventoryVisual : MonoBehaviour
 
         foreach (var seed in seeds)
         {
-            SeedItem seedItem = Instantiate(seedPrefab, contain).GetComponent<SeedItem>();
+            Item seedItem = Instantiate(seedPrefab, contain).GetComponent<Item>();
 
             string text = $"Seed {seed.name}: {seed.amounts}";
 
@@ -45,7 +45,7 @@ public class InventoryVisual : MonoBehaviour
 
         foreach (var product in products)
         {
-            ProductItem productItem = Instantiate(productPrefab, contain).GetComponent<ProductItem>();
+            Item productItem = Instantiate(productPrefab, contain).GetComponent<Item>();
 
             string text = $"Product {product.name}: {product.amounts}";
 

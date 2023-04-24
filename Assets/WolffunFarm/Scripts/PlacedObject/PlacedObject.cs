@@ -123,12 +123,12 @@ public class PlacedObject : MonoBehaviour {
 
     public void SetAgricultural(AgriculturalSO agriculturalSO)
     {
-        if (IsHaveAgricultural()) return;
+        if (IsHasAgricultural()) return;
 
         this.agriculturalSO = agriculturalSO;
     }
 
-    private bool IsHaveAgricultural()
+    public bool IsHasAgricultural()
     {
         return agriculturalSO != null;
     }
@@ -154,6 +154,16 @@ public class PlacedObject : MonoBehaviour {
     {
         timeCount = UtilsClass.MinusToSecond(globalInfor.timeWaitHarvestMinus);
         state = State.WaitHarvest;
+    }
+
+    public void Harvest()
+    {
+        if (!IsHasAgricultural() || product == 0) return;
+
+        Inventory.Instance.SetAmountProduct(agriculturalSO.name, product);
+        product = 0;
+
+        if (produced == agriculturalSO.totalProduct) ResetObject();
     }
 
     #region Save Load
