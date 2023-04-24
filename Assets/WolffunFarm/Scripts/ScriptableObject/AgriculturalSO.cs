@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "Wolffun/Agricultural")]
 public class AgriculturalSO : ScriptableObject 

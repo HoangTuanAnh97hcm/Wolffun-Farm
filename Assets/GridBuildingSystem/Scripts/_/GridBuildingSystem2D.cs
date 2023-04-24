@@ -11,7 +11,7 @@ public class GridBuildingSystem2D : MonoBehaviour {
     public event EventHandler OnObjectPlaced;
 
     private Grid<GridObject> grid;
-    private PlacedObjectTypeSO placedObjectTypeSO;
+    private AgriculturalSO placedObjectTypeSO;
 
     private void Awake() {
         Instance = this;
@@ -29,7 +29,7 @@ public class GridBuildingSystem2D : MonoBehaviour {
         private Grid<GridObject> grid;
         private int x;
         private int y;
-        public PlacedObject_Done placedObject;
+        public PlacedObject placedObject;
 
         public GridObject(Grid<GridObject> grid, int x, int y) {
             this.grid = grid;
@@ -42,7 +42,7 @@ public class GridBuildingSystem2D : MonoBehaviour {
             return x + ", " + y + "\n" + placedObject;
         }
 
-        public void SetPlacedObject(PlacedObject_Done placedObject) {
+        public void SetPlacedObject(PlacedObject placedObject) {
             this.placedObject = placedObject;
         }
 
@@ -50,7 +50,7 @@ public class GridBuildingSystem2D : MonoBehaviour {
             placedObject = null;
         }
 
-        public PlacedObject_Done GetPlacedObject() {
+        public PlacedObject GetPlacedObject() {
             return placedObject;
         }
 
@@ -68,10 +68,9 @@ public class GridBuildingSystem2D : MonoBehaviour {
             Vector2Int placedObjectOrigin = new Vector2Int(x, z);
 
             // Test Can Build
-            Vector2Int gridPosition = placedObjectTypeSO.GetGridPosition(placedObjectOrigin);
             bool canBuild = true;
 
-            if (!grid.GetGridObject(gridPosition.x, gridPosition.y).CanBuild())
+            if (!grid.GetGridObject(mousePosition).CanBuild())
             {
                 canBuild = false;
             }
@@ -79,9 +78,9 @@ public class GridBuildingSystem2D : MonoBehaviour {
             if (canBuild) {
                 Vector3 placedObjectWorldPosition = grid.GetWorldPosition(x, z) * grid.GetCellSize();
 
-                PlacedObject_Done placedObject = PlacedObject_Done.Create(placedObjectWorldPosition, placedObjectOrigin, placedObjectTypeSO);
-
-                grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObject);
+                PlacedObject placedObject = PlacedObject.Create(placedObjectWorldPosition, transform);
+                    
+                grid.GetGridObject(mousePosition).SetPlacedObject(placedObject);
 
                 OnObjectPlaced?.Invoke(this, EventArgs.Empty);
 
@@ -96,13 +95,12 @@ public class GridBuildingSystem2D : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(1)) {
             Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
-            PlacedObject_Done placedObject = grid.GetGridObject(mousePosition).GetPlacedObject();
+            PlacedObject placedObject = grid.GetGridObject(mousePosition).GetPlacedObject();
             if (placedObject != null) {
                 // Demolish
                 placedObject.DestroySelf();
 
-                Vector2Int gridPosition = placedObject.GetGridPosition();
-                grid.GetGridObject(gridPosition.x, gridPosition.y).ClearPlacedObject();
+                grid.GetGridObject(mousePosition).ClearPlacedObject();
             }
         }
     }
@@ -133,7 +131,7 @@ public class GridBuildingSystem2D : MonoBehaviour {
         }
     }
 
-    public PlacedObjectTypeSO GetPlacedObjectTypeSO() {
+    public AgriculturalSO GetPlacedObjectTypeSO() {
         return placedObjectTypeSO;
     }
 

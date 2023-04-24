@@ -16,9 +16,11 @@ public class Seed : MonoBehaviour, IPointerClickHandler
 
     private void OnValidate()
     {
+        if (!gameObject.activeInHierarchy) return;
+
         if (agriculturalSO == null)
-            Logging.LogWarning("AgriculturaSO is null. Please set reference to it");
+            Logging.LogWarning($"{gameObject.name}: AgriculturaSO is null. Please set reference to it");
         if (inventory == null)
-            Logging.LogWarning("Inventory GameObject is null. Please set reference to it");
+            Logging.LogWarning($"{gameObject.name}: Inventory GameObject is null. Please set reference to it");
     }
 }

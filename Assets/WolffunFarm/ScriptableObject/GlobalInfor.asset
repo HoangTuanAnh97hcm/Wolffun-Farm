@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: GlobalInfor
   m_EditorClassIdentifier: 
   timeScale: 1
+  timeWaitHarvestMinus: 0.1
+  upgradePercent: 0

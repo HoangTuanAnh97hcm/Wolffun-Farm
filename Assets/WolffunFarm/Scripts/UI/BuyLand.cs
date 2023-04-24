@@ -21,7 +21,7 @@ public class BuyLand : MonoBehaviour
 
     private void OnBuyLandClick()
     {
-        GridSystem.Instance.SetPlaceObject(placedObject);
+        GridSystem.Instance.SetPlancedObject(placedObject);
     }
 
     private void OnValidate()

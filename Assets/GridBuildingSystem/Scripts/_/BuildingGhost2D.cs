@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuildingGhost2D : MonoBehaviour {
 
     private Transform visual;
-    private PlacedObjectTypeSO placedObjectTypeSO;
+    private AgriculturalSO placedObjectTypeSO;
 
     private void Start() {
         RefreshVisual();
@@ -28,10 +28,10 @@ public class BuildingGhost2D : MonoBehaviour {
             visual = null;
         }
 
-        PlacedObjectTypeSO placedObjectTypeSO = GridBuildingSystem2D.Instance.GetPlacedObjectTypeSO();
+        AgriculturalSO placedObjectTypeSO = GridBuildingSystem2D.Instance.GetPlacedObjectTypeSO();
 
         if (placedObjectTypeSO != null) {
-            visual = Instantiate(placedObjectTypeSO.visual, Vector3.zero, Quaternion.identity);
+            visual = Instantiate(placedObjectTypeSO.visualPrefab.transform, Vector3.zero, Quaternion.identity);
             visual.parent = transform;
             visual.localPosition = Vector3.zero;
             visual.localEulerAngles = Vector3.zero;

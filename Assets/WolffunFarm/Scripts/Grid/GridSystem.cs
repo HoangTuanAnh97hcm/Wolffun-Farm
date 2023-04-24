@@ -1,13 +1,13 @@
-using JetBrains.Annotations;
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class GridSystem : MonoBehaviour
 {
     public static GridSystem Instance { get; private set; }
+
+    public event EventHandler OnLoaded;
 
     [SerializeField] private int gridWidth;
     [SerializeField] private int gridHeight;
@@ -17,11 +17,16 @@ public class GridSystem : MonoBehaviour
 
     private Grid<GridObject> grid;
 
+    private const string DATA_NAME = "GridData.txt";
+    private string SAVE_PATH { get { return Application.persistentDataPath + DATA_NAME; } }
+
     private void Awake()
     {
         Instance = this;
 
         grid = new Grid<GridObject>(gridWidth, gridHeight, gridSize, Vector3.zero, (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
+
+        Load();
     }
 
     public class GridObject
@@ -56,6 +61,34 @@ public class GridSystem : MonoBehaviour
         {
             return placedObject == null;
         }
+
+        [System.Serializable]
+        public class SaveObject
+        {
+            public string placedObject;
+            public int x;
+            public int y;
+        }
+
+        /*
+         * Save - Load
+         * */
+        public SaveObject Save()
+        {
+            return new SaveObject
+            {
+                placedObject = placedObject?.SaveData(),
+                x = x,
+                y = y,
+            };
+        }
+
+        public void Load(SaveObject saveObject)
+        {
+            placedObject?.LoadData(saveObject.placedObject);
+            x = saveObject.x;
+            y = saveObject.y;
+        }
     }
 
     private void Update()
@@ -72,8 +105,10 @@ public class GridSystem : MonoBehaviour
             if (gridObject.CanLand() && placedObject != null)
             {
                 PlacingObject(gridObject, x, y);
-
-            }else if (!gridObject.CanLand() && agriculturalSO != null)
+                this.placedObject = null;
+                Save();
+            }
+            else if (!gridObject.CanLand() && agriculturalSO != null)
             {
                 PlacingAgricultural(x, y);
             }
@@ -84,23 +119,24 @@ public class GridSystem : MonoBehaviour
     {
         PlacedObject placedObject = PlacedObject.Create(grid.GetWorldPosition(x, y), this.placedObject.transform);
         gridObject.SetPlaceObject(placedObject);
-
-        this.placedObject = null;
     }
 
     private void PlacingAgricultural(int x, int y)
     {
         PlacedObject placedObject = grid.GetGridObject(x, y).GetPlaceObject();
         placedObject.SetAgricultural(agriculturalSO);
-
+        placedObject.StartStateProduction();
+        
         this.agriculturalSO = null;
+
+        Save();
     }
 
     /// <summary>
     /// Set Prefab PlacedOBject to Grid System
     /// </summary>
     /// <param name="placedObject">Prefab has scritp Placed Object.</param>
-    public void SetPlaceObject(PlacedObject placedObject)
+    public void SetPlancedObject(PlacedObject placedObject)
     {
         this.placedObject = placedObject;
     }
@@ -112,5 +148,56 @@ public class GridSystem : MonoBehaviour
     public void SetAgricultural(AgriculturalSO agriculturalSO)
     {
         this.agriculturalSO = agriculturalSO;
+    }
+
+    /*
+        * Save - Load
+        * */
+    public class SaveObject
+    {
+        public GridObject.SaveObject[] gridObjectSaveObjectArray;
+    }
+
+    public void Save()
+    {
+        List<GridObject.SaveObject> gridObjectSaveObjectList = new List<GridObject.SaveObject>();
+        for (int x = 0; x < grid.GetWidth(); x++)
+        {
+            for (int y = 0; y < grid.GetHeight(); y++)
+            {
+                GridObject gridObject = grid.GetGridObject(x, y);
+                gridObjectSaveObjectList.Add(gridObject.Save());
+            }
+        }
+
+        SaveObject saveObject = new SaveObject { gridObjectSaveObjectArray = gridObjectSaveObjectList.ToArray() };
+
+        SaveSystem.SaveObject(saveObject);
+    }
+
+    public void Load()
+    {
+        SaveObject saveObject = SaveSystem.LoadMostRecentObject<SaveObject>();
+
+        if (saveObject == null) return;
+
+        foreach (GridObject.SaveObject gridObjectSaveObject in saveObject.gridObjectSaveObjectArray)
+        {
+            GridObject gridObject = grid.GetGridObject(gridObjectSaveObject.x, gridObjectSaveObject.y);
+
+            if (gridObjectSaveObject.placedObject != "")
+            {
+                PlacingObject(gridObject, gridObjectSaveObject.x, gridObjectSaveObject.y);
+                gridObject.Load(gridObjectSaveObject);
+            }
+        }
+
+        placedObject = null;
+        OnLoaded?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnApplicationQuit()
+    {
+        Save();
     }
 }
