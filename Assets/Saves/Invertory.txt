@@ -1,0 +1,38 @@
+{
+    "seeds": [
+        {
+            "name": "Blueberry",
+            "amounts": 0
+        },
+        {
+            "name": "DairyCow",
+            "amounts": 0
+        },
+        {
+            "name": "Strawberry",
+            "amounts": 0
+        },
+        {
+            "name": "Tomato",
+            "amounts": 0
+        }
+    ],
+    "products": [
+        {
+            "name": "Blueberry",
+            "amounts": 0
+        },
+        {
+            "name": "DairyCow",
+            "amounts": 0
+        },
+        {
+            "name": "Strawberry",
+            "amounts": 0
+        },
+        {
+            "name": "Tomato",
+            "amounts": 0
+        }
+    ]
+}

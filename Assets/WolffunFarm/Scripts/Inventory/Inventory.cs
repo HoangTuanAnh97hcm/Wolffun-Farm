@@ -8,8 +8,8 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; private set; }
 
-    public Seeds[] seeds;
-    public Products[] products;
+    private Seeds[] seeds;
+    private Products[] products;
 
     private const string DATA_NAME = "Invertory";
 
@@ -47,6 +47,11 @@ public class Inventory : MonoBehaviour
     {
         return seeds.Where(s => s.name == name).FirstOrDefault().amounts;
     }
+
+    public Seeds[] GetAllSeeds()
+    {
+        return seeds;
+    }
     #endregion
 
     #region Product
@@ -71,8 +76,14 @@ public class Inventory : MonoBehaviour
     {
         return products.Where(s => s.name == name).FirstOrDefault().amounts;
     }
+
+    public Products[] GetAllProducts()
+    {
+        return products;
+    }
     #endregion
 
+    #region SaveLoad
     public class SaveObject
     {
         public Seeds[] seeds;
@@ -104,6 +115,7 @@ public class Inventory : MonoBehaviour
     {
         Save();
     }
+    #endregion
 }
 
 [Serializable]
