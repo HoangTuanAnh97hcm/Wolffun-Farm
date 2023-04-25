@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeScale: 1
   timeWaitHarvestMinus: 60
+  upgradePercent: 10
+  workerTimeFinishActionSecond: 120
+  targetCoints: 1000000
   priceLand: 500
   priceUpgrade: 500
   priceWorker: 500
-  upgradePercent: 10
-  workerTimeFinishActionSecond: 1
-  targetCoints: 1000000

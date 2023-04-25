@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NewGame
   m_EditorClassIdentifier: 
   plantedLand: 3
-  Wolker: 3
+  Wolker: 1
   levelDevice: 1
   seeds:
   - name: Tomato
