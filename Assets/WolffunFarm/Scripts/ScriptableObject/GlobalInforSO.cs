@@ -16,6 +16,10 @@ public class GlobalInforSO : ScriptableObject
     public int priceLand = 500;
     [Tooltip("Price of Upgrade Device")]
     public int priceUpgrade = 500;
+    [Tooltip("Price of Worker")]
+    public int priceWorker = 500;
     [Tooltip("Farm Device Upgrade Percent")]
     public int upgradePercent = 10;
+    [Tooltip("Time worker need to finish action. Second")]
+    public int workerTimeFinishActionSecond = 120;
 }

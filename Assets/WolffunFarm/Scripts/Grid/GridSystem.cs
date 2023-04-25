@@ -90,6 +90,12 @@ public class GridSystem : MonoBehaviour
         placedObject.StartStateProduction();
     }
 
+    public void Planting(PlacedObject placedObject, AgriculturalSO agriculturalSO)
+    {
+        placedObject.SetAgricultural(agriculturalSO);
+        placedObject.StartStateProduction();
+    }
+
     /// <summary>
     /// Set Prefab PlacedOBject to Grid System
     /// </summary>
@@ -174,6 +180,25 @@ public class GridSystem : MonoBehaviour
         Save();
     }
     #endregion
+
+    public List<PlacedObject> GetAllPlaceObjectAvailable()
+    {
+        List<PlacedObject> placeObjectList = new List<PlacedObject>();
+        for (int x = 0; x < grid.GetWidth(); x++)
+        {
+            for (int y = 0; y < grid.GetHeight(); y++)
+            {
+                GridObject gridObject = grid.GetGridObject(x, y);
+                PlacedObject placedObject = gridObject.GetPlaceObject();
+
+                if (placedObject == null) continue;
+
+                placeObjectList.Add(placedObject);
+            }
+        }
+
+        return placeObjectList;
+    }
 
     public class GridObject
     {

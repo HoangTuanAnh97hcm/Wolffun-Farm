@@ -17,3 +17,4 @@ MonoBehaviour:
   priceLand: 500
   priceUpgrade: 500
   upgradePercent: 10
+  workerTimeFinishActionSecond: 1

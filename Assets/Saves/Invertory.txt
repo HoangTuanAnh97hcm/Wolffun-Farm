@@ -20,7 +20,7 @@
     "products": [
         {
             "name": "Blueberry",
-            "amounts": 3
+            "amounts": 147
         },
         {
             "name": "DairyCow",

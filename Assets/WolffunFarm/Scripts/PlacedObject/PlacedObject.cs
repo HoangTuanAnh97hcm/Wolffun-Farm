@@ -166,6 +166,11 @@ public class PlacedObject : MonoBehaviour {
         if (produced == agriculturalSO.totalProduct) ResetObject();
     }
 
+    public bool CanHarvest()
+    {
+        return product > 0;
+    }
+
     #region Save Load
     [System.Serializable]
     public class SaveObject

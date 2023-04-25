@@ -1,17 +1,17 @@
 {
     "gridObjectSaveObjectArray": [
         {
-            "placedObject": "{\"agriculturalName\":null,\"product\":0,\"produced\":0,\"dateTime\":\"2023-04-25T06:44:54.3971421+07:00\",\"state\":0}",
+            "placedObject": "{\"agriculturalName\":\"Blueberry\",\"product\":0,\"produced\":1,\"dateTime\":\"2023-04-25T20:38:53.6011666+07:00\",\"state\":1}",
             "x": 0,
             "y": 0
         },
         {
-            "placedObject": "{\"agriculturalName\":null,\"product\":0,\"produced\":0,\"dateTime\":\"2023-04-25T06:44:54.417087+07:00\",\"state\":0}",
+            "placedObject": "{\"agriculturalName\":\"Blueberry\",\"product\":1,\"produced\":1,\"dateTime\":\"2023-04-25T20:38:54.0220916+07:00\",\"state\":1}",
             "x": 0,
             "y": 1
         },
         {
-            "placedObject": "{\"agriculturalName\":null,\"product\":0,\"produced\":0,\"dateTime\":\"2023-04-25T06:44:54.417087+07:00\",\"state\":0}",
+            "placedObject": "{\"agriculturalName\":\"Blueberry\",\"product\":1,\"produced\":1,\"dateTime\":\"2023-04-25T20:38:54.0350916+07:00\",\"state\":1}",
             "x": 0,
             "y": 2
         },
@@ -136,7 +136,7 @@
             "y": 2
         },
         {
-            "placedObject": "",
+            "placedObject": "{\"agriculturalName\":\"Blueberry\",\"product\":0,\"produced\":1,\"dateTime\":\"2023-04-25T20:38:52.4580888+07:00\",\"state\":1}",
             "x": 4,
             "y": 3
         },
@@ -166,7 +166,7 @@
             "y": 2
         },
         {
-            "placedObject": "",
+            "placedObject": "{\"agriculturalName\":\"Blueberry\",\"product\":1,\"produced\":1,\"dateTime\":\"2023-04-25T20:38:54.6900888+07:00\",\"state\":1}",
             "x": 5,
             "y": 3
         },
@@ -196,7 +196,7 @@
             "y": 2
         },
         {
-            "placedObject": "",
+            "placedObject": "{\"agriculturalName\":\"Blueberry\",\"product\":1,\"produced\":1,\"dateTime\":\"2023-04-25T20:38:54.7070888+07:00\",\"state\":1}",
             "x": 6,
             "y": 3
         },
