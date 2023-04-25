@@ -22,4 +22,6 @@ public class GlobalInforSO : ScriptableObject
     public int upgradePercent = 10;
     [Tooltip("Time worker need to finish action. Second")]
     public int workerTimeFinishActionSecond = 120;
+    [Tooltip("Amount coint collect to win")]
+    public int targetCoints = 1000000;
 }

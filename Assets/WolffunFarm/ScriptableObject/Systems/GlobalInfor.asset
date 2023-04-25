@@ -16,5 +16,7 @@ MonoBehaviour:
   timeWaitHarvestMinus: 60
   priceLand: 500
   priceUpgrade: 500
+  priceWorker: 500
   upgradePercent: 10
   workerTimeFinishActionSecond: 1
+  targetCoints: 1000000

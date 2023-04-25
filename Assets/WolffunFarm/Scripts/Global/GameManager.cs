@@ -5,9 +5,23 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GlobalInforSO globalInfor;
+    [SerializeField] private GameObject winPopup;
     void Update()
     {
         UpdateTimeScale();
+    }
+
+    private void Start()
+    {
+        GameData.OnDataChange += CheckWin;
+    }
+
+    private void CheckWin(object seed, GameData.GameDataEventArgs e)
+    {
+        if (e.coint >= globalInfor.targetCoints)
+        {
+            Instantiate(winPopup);
+        }
     }
 
 #if UNITY_EDITOR

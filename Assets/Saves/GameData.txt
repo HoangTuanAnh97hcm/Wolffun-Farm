@@ -1,4 +1,4 @@
 {
-    "coints": 769,
+    "coints": 774,
     "levelDevices": 1
 }
