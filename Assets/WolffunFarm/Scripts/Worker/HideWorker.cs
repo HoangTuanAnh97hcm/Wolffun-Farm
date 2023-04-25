@@ -16,7 +16,11 @@ public class HideWorker : MonoBehaviour
 
     public void Hide()
     {
-        if (GameData.Instance.GetCoint() < globalInforSO.priceWorker) return;
+        if (GameData.Instance.GetCoint() < globalInforSO.priceWorker)
+        {
+            Logging.LogError("You didn't have enought coint");
+            return;
+        }
 
         GameData.Instance.SetCoint(-globalInforSO.priceWorker);
         WorkerSystem.Instance.SetWorker();

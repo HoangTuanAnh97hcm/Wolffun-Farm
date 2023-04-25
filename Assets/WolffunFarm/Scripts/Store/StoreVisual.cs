@@ -23,7 +23,11 @@ public class StoreVisual : MonoBehaviour
 
             seedItem.SetVisual(text, () =>
             {
-                if (GameData.Instance.GetCoint() < item.price) return;
+                if (GameData.Instance.GetCoint() < item.price)
+                {
+                    Logging.LogError("You didn't have enought coint");
+                    return;
+                }
 
                 GameData.Instance.SetCoint(-item.price);
                 Inventory.Instance.SetAmountSeed(item.ID, item.amount);

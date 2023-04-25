@@ -17,7 +17,11 @@ public class UpgradeDevice : MonoBehaviour
 
     private void SetLevelDevice()
     {
-        if (GameData.Instance.GetCoint() < globalInforSO.priceUpgrade) return;
+        if (GameData.Instance.GetCoint() < globalInforSO.priceUpgrade)
+        {
+            Logging.LogError("You didn't have enought coint");
+            return;
+        }
 
         GameData.Instance.SetLevelDevice();
         GameData.Instance.SetCoint(-globalInforSO.priceUpgrade);
