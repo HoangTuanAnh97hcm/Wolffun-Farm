@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Strawberry
   m_EditorClassIdentifier: 
   ID: Strawberry
-  price: 5
-  totalProduct: 2
-  productTimeMinus: 0.1
+  price: 20
+  totalProduct: 20
+  productTimeMinus: 5
   visualPrefab: {fileID: 7555180721689288686, guid: 92c2047cda919d4409808c3112da89a3, type: 3}

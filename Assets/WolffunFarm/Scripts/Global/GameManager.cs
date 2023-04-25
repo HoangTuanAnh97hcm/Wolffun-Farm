@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
         GameData.OnDataChange += CheckWin;
     }
 
-    private void CheckWin(object seed, GameData.GameDataEventArgs e)
+    public void CheckWin(object seed, GameData.GameDataEventArgs e)
     {
         if (e.coint >= globalInfor.targetCoints)
         {

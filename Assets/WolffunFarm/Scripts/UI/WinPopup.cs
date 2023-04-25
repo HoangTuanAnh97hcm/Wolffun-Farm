@@ -15,7 +15,7 @@ public class WinPopup : MonoBehaviour
     {
         timeCount += Time.deltaTime;
 
-        if (timeCount < 2)
+        if (timeCount < timeAnimation)
         {
             youWin_txt.localScale = new Vector2(timeCount, timeCount);
         }

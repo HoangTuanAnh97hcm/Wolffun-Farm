@@ -19,7 +19,7 @@ public class StoreVisual : MonoBehaviour
         {
             Item seedItem = Instantiate(storePrefab, contain).GetComponent<Item>();
 
-            string text = $"{item.name}: {item.price}Coint/{item.amount}Seed";
+            string text = $"{item.name}: {item.amount}Seed/{item.price}Coint";
 
             seedItem.SetVisual(text, () =>
             {

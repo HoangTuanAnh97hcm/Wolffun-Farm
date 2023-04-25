@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DairyCow
   m_EditorClassIdentifier: 
   ID: DairyCow
-  price: 5
-  totalProduct: 2
-  productTimeMinus: 0.1
+  price: 15
+  totalProduct: 100
+  productTimeMinus: 30
   visualPrefab: {fileID: 7555180721689288686, guid: 92c2047cda919d4409808c3112da89a3, type: 3}
