@@ -22,7 +22,11 @@ public class BuyLand : MonoBehaviour
 
     private void OnBuyLandClick()
     {
-        if (GameData.Instance.GetCoint() < globalInforSO.priceLand) return;
+        if (GameData.Instance.GetCoint() < globalInforSO.priceLand)
+        {
+            Logging.LogError("You don't have enought Coint");
+            return;
+        }
 
         GridSystem.Instance.SetPlancedObject(placedObject);
     }
